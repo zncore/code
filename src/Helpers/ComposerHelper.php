@@ -18,6 +18,9 @@ class ComposerHelper
     public static function getInstalledPackages()
     {
         $packages = ComposerHelper::getInstalled()['packages'];
+
+
+
         $map = [];
         foreach ($packages as $package) {
             if(isset($package['autoload']['psr-4'])) {
