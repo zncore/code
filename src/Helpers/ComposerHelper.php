@@ -15,30 +15,6 @@ class ComposerHelper
 
     private static $composerVendorClassLoader;
 
-    public static function getInstalledPackages()
-    {
-        $packages = ComposerHelper::getInstalled()['packages'];
-
-
-
-        $map = [];
-        foreach ($packages as $package) {
-            if(isset($package['autoload']['psr-4'])) {
-                foreach ($package['autoload']['psr-4'] as $namespace => $path) {
-                    $namespace = trim($namespace, '\\');
-                    $map[$namespace] = $package;
-                }
-            }
-        }
-        return $map;
-    }
-
-    public static function getInstalled()
-    {
-        $store = new StoreFile(__DIR__ . '/../../../../composer/installed.json');
-        return $installed = $store->load();
-    }
-
     /**
      * Получить загрузчик классов
      * @return ClassLoader

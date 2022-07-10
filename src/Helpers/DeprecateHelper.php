@@ -59,10 +59,11 @@ class DeprecateHelper
 
     /**
      * Установить строгий режим устаревания
+     * @param bool $value
      */
-    public static function setStrictMode(): void
+    public static function setStrictMode(bool $value = true): void
     {
-        self::$isStrictMode = true;
+        self::$isStrictMode = $value;
     }
 
     private static function getStrictMode(): bool
