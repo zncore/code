@@ -5,7 +5,6 @@ namespace ZnCore\Code\Helpers;
 use Composer\Autoload\ClassLoader;
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Code\Exceptions\NotFoundDependencyException;
-use ZnLib\Components\Store\StoreFile;
 
 /**
  * Работа с Composer
