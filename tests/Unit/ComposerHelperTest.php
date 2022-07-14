@@ -30,7 +30,7 @@ final class ComposerHelperTest extends TestCase
 
     public function testBasics12()
     {
-        $dir = ComposerHelper::getPsr4Path('ZnCore\\Base\\Helpers');
-        $this->assertEquals(realpath(__DIR__ . '/../../../../zncore/base/src/Helpers'), $dir);
+        $dir = ComposerHelper::getPsr4Path('ZnCore\\Code\\Helpers');
+        $this->assertEquals(realpath(__DIR__ . '/../../../../zncore/code/src/Helpers'), $dir);
     }
 }
