@@ -3,7 +3,7 @@
 namespace ZnCore\Code\Helpers;
 
 use ZnCore\Text\Helpers\Inflector;
-use ZnDomain\Entity\Factories\PropertyAccess;
+use ZnCore\Code\Factories\PropertyAccess;
 
 /**
  * Работа с атрибутами класса
