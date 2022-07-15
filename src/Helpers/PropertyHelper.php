@@ -2,13 +2,8 @@
 
 namespace ZnCore\Code\Helpers;
 
-use ReflectionClass;
-use ZnCore\Arr\Helpers\ArrayHelper;
-use ZnCore\Collection\Interfaces\Enumerable;
-use ZnDomain\Entity\Factories\PropertyAccess;
-use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Text\Helpers\Inflector;
-use ZnLib\Components\DynamicEntity\Interfaces\DynamicEntityAttributesInterface;
+use ZnDomain\Entity\Factories\PropertyAccess;
 
 /**
  * Работа с атрибутами класса
@@ -21,6 +16,24 @@ class PropertyHelper
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         return $propertyAccessor->getValue($enitity, $attribute);
     }
+
+    public static function setValue(object $entity, string $name, $value): void
+    {
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+        $propertyAccessor->setValue($entity, $name, $value);
+    }
+
+    /*public static function getAttribute(object $entity, string $key)
+    {
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+        return $propertyAccessor->getValue($entity, $key);
+    }
+
+    public static function setAttribute(object $entity, string $name, $value): void
+    {
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+        $propertyAccessor->setValue($entity, $name, $value);
+    }*/
 
     public static function setAttributes(object $entity, $data, array $filedsOnly = []): void
     {
@@ -38,12 +51,6 @@ class PropertyHelper
                 }
             }
         }
-    }
-
-    public static function setAttribute(object $entity, string $name, $value): void
-    {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-        $propertyAccessor->setValue($entity, $name, $value);
     }
 
     public static function isWritableAttribute(object $entity, string $name): bool
