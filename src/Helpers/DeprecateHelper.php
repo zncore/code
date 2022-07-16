@@ -49,7 +49,8 @@ class DeprecateHelper
     }
 
     /**
-     * Включен ли строгий режим устаревания
+     * Проверяет, включен ли строгий режим устаревания.
+     * 
      * @return bool
      */
     public static function isStrictMode(): bool
@@ -58,7 +59,8 @@ class DeprecateHelper
     }
 
     /**
-     * Установить строгий режим устаревания
+     * Установить строгий режим устаревания.
+     * 
      * @param bool $value
      */
     public static function setStrictMode(bool $value = true): void

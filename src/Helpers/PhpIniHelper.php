@@ -2,11 +2,15 @@
 
 namespace ZnCore\Code\Helpers;
 
+/**
+ * Работа с конфигурацией PHP (php.ini)
+ */
 class PhpIniHelper
 {
 
     /**
-     * Checks if PHP configuration option (from php.ini) is on.
+     * Проверяет, включена ли опция конфигурации PHP.
+     *
      * @param string $name configuration option name.
      * @return bool option is on.
      */
@@ -20,7 +24,8 @@ class PhpIniHelper
     }
 
     /**
-     * Checks if PHP configuration option (from php.ini) is off.
+     * Проверяет, отключена ли опция конфигурации PHP.
+     *
      * @param string $name configuration option name.
      * @return bool option is off.
      */
@@ -33,6 +38,12 @@ class PhpIniHelper
         return (strtolower($value) === 'off');
     }
 
+    /**
+     * Проверяет, пустое ли значение опции конфигурации PHP.
+     * 
+     * @param $name
+     * @return bool
+     */
     public static function isEmpty($name): bool
     {
         $value = ini_get($name);
@@ -43,9 +54,14 @@ class PhpIniHelper
         return (strlen($value) === 0);
     }
 
+    /**
+     * Проверяет, не пустое ли значение опции конфигурации PHP.
+     *
+     * @param $name
+     * @return bool
+     */
     public static function isNotEmpty($name): bool
     {
         return !self::checkPhpIniEmpty($name);
     }
-
 }

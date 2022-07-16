@@ -11,30 +11,39 @@ use ZnCore\Code\Factories\PropertyAccess;
 class PropertyHelper
 {
 
+    /**
+     * Получить значение атрибута.
+     * 
+     * @param object $enitity
+     * @param string $attribute
+     * @return mixed
+     */
     public static function getValue(object $enitity, string $attribute)
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         return $propertyAccessor->getValue($enitity, $attribute);
     }
 
+    /**
+     * Установить значение атрибута.
+     * 
+     * @param object $entity
+     * @param string $name
+     * @param $value
+     */
     public static function setValue(object $entity, string $name, $value): void
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         $propertyAccessor->setValue($entity, $name, $value);
     }
 
-    /*public static function getAttribute(object $entity, string $key)
-    {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-        return $propertyAccessor->getValue($entity, $key);
-    }
-
-    public static function setAttribute(object $entity, string $name, $value): void
-    {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-        $propertyAccessor->setValue($entity, $name, $value);
-    }*/
-
+    /**
+     * Назначить массив атрибутов.
+     * 
+     * @param object $entity
+     * @param array $data
+     * @param array $filedsOnly
+     */
     public static function setAttributes(object $entity, $data, array $filedsOnly = []): void
     {
         if (empty($data)) {
@@ -53,12 +62,26 @@ class PropertyHelper
         }
     }
 
+    /**
+     * Проверяет, доступен ли атрибут для записи.
+     * 
+     * @param object $entity
+     * @param string $name
+     * @return bool
+     */
     public static function isWritableAttribute(object $entity, string $name): bool
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         return $propertyAccessor->isWritable($entity, $name);
     }
 
+    /**
+     * Проверяет, доступен ли атрибут для чтения.
+     * 
+     * @param object $entity
+     * @param string $name
+     * @return bool
+     */
     public static function isReadableAttribute(object $entity, string $name): bool
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();

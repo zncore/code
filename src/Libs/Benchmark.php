@@ -6,13 +6,22 @@ use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Contract\Common\Exceptions\InternalServerErrorException;
 use ZnCore\Text\Libs\RandomString;
 
+/**
+ * Замер производительности в произвольных местах кода.
+ */
 class Benchmark
 {
 
     private static $data = [];
     private static $sessionId = null;
 
-    public static function begin($name, $data = null)
+    /**
+     * Начать замер.
+     * 
+     * @param string $name
+     * @param null $data
+     */
+    public static function begin(string $name, $data = null)
     {
         $microTime = microtime(true);
         if (!self::isEnable()) {
@@ -25,7 +34,14 @@ class Benchmark
         self::append($item);
     }
 
-    public static function end($name, $data = null)
+    /**
+     * Закончить замер.
+     * 
+     * @param string $name
+     * @param null $data
+     * @throws InternalServerErrorException
+     */
+    public static function end(string $name, $data = null)
     {
         $microTime = microtime(true);
         if (!self::isEnable()) {
@@ -50,28 +66,55 @@ class Benchmark
         self::append($item);
     }
 
+    /**
+     * Очистить результат.
+     */
     public static function flushAll()
     {
         self::$data = [];
     }
 
-    public static function all()
+    /**
+     * Получить массив точек измерения.
+     * 
+     * @return array
+     */
+    public static function all(): array
     {
         return self::$data;
     }
 
+    /**
+     * Получить одну точку измерения.
+     * 
+     * @param string $name
+     * @param int $percision
+     * @return float|null
+     */
     public static function one(string $name, int $percision = 5): ?float
     {
         $all = self::allFlat($percision);
         return ArrayHelper::getValue($all, $name);
     }
 
+    /**
+     * Проверяет, сущестует ли точка измерения.
+     * 
+     * @param string $name
+     * @return bool
+     */
     public static function has(string $name): bool
     {
         $all = self::allFlat();
         return isset($all[$name]);
     }
 
+    /**
+     * Получить массив точек измерения в виде плоского массива.
+     * 
+     * @param int $percision
+     * @return array
+     */
     public static function allFlat(int $percision = 5): array
     {
         $durations = ArrayHelper::map(self::$data, 'name', 'duration');
@@ -105,20 +148,6 @@ class Benchmark
         return self::$sessionId;
     }
 
-    /*private static function getFileName()
-    {
-        $dir = __DIR__ . '/../../../../../../../common/runtime/logs/benchmark';
-        $file = self::getRequestId() . '.json';
-        return $dir . DIRECTORY_SEPARATOR . $file;
-    }
-
-    private static function getStoreInstance()
-    {
-        $fileName = self::getFileName();
-        $store = new StoreFile($fileName);
-        return $store;
-    }*/
-
     private static function append($item)
     {
         $name = $item['name'];
@@ -135,5 +164,4 @@ class Benchmark
             ]);*/
         }
     }
-
 }

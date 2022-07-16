@@ -7,6 +7,12 @@ use ZnCore\FileSystem\Helpers\FilePathHelper;
 class PhpHelper
 {
 
+    /**
+     * Проверяет, зарезервированно ли имя в PHP.
+     *
+     * @param string $name
+     * @return bool
+     */
     public static function isReservedName(string $name)
     {
         $keywords = array(
@@ -21,6 +27,12 @@ class PhpHelper
         return in_array($name, $keywords);
     }
 
+    /**
+     * Подключить PHP-файлы из директории.
+     *
+     * @param string $directory Путь до директории
+     * @param bool $isRecursive Рекурсивно
+     */
     public static function requireFromDirectory(string $directory, bool $isRecursive = false)
     {
         $directory = rtrim($directory, '/');
@@ -38,7 +50,8 @@ class PhpHelper
     }
 
     /**
-     * Checks if the given PHP extension is available and its version matches the given one.
+     * Проверяет, доступно ли данное расширение PHP и соответствует ли его версия заданной.
+     *
      * @param string $extensionName PHP extension name.
      * @param string $version required PHP extension version.
      * @param string $compare comparison operator, by default '>='

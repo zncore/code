@@ -16,6 +16,7 @@ class ComposerHelper
 
     /**
      * Получить загрузчик классов
+     * 
      * @return ClassLoader
      */
     public static function getComposerVendorClassLoader(): ClassLoader
@@ -30,6 +31,7 @@ class ComposerHelper
 
     /**
      * Требовать установку composer-пакета
+     * 
      * @param string $className
      * @param string $packageName
      * @param string|null $version

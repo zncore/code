@@ -9,7 +9,8 @@ class TypeHelper
 {
 
     /**
-     * Является ли значение бинарным
+     * Проверяет, является ли значение бинарным.
+     * 
      * @param $str
      * @return bool
      */
@@ -19,12 +20,24 @@ class TypeHelper
         return !ctype_print($str);
     }
 
-    public static function isSha1($string)
+    /**
+     * Проверяет, является ли значение хэшем Sha1.
+     * 
+     * @param string $string
+     * @return false|int
+     */
+    public static function isSha1(string $string): bool
     {
         return preg_match('/[0-9a-f]{40}/i', $string);
     }
 
-    public static function isCallable($value)
+    /**
+     * Проверяет, является ли значение вызываемым.
+     * 
+     * @param array | string | callable $value
+     * @return bool
+     */
+    public static function isCallable($value): bool
     {
         return $value instanceof \Closure || is_callable($value);
     }
