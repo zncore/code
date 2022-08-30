@@ -2,6 +2,7 @@
 
 namespace ZnCore\Code\Helpers;
 
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Text\Helpers\Inflector;
 use ZnCore\Code\Factories\PropertyAccess;
 
@@ -14,25 +15,34 @@ class PropertyHelper
     /**
      * Получить значение атрибута.
      * 
-     * @param object $enitity
+     * @param object | array $entity
      * @param string $attribute
      * @return mixed
      */
-    public static function getValue(object $enitity, string $attribute)
+    public static function getValue($entity, string $attribute)
     {
+        if(is_array($entity)) {
+            return ArrayHelper::getValue($entity, $attribute);
+        }
+
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
-        return $propertyAccessor->getValue($enitity, $attribute);
+        return $propertyAccessor->getValue($entity, $attribute);
     }
 
     /**
      * Установить значение атрибута.
      * 
-     * @param object $entity
+     * @param object | array $entity
      * @param string $name
      * @param $value
      */
-    public static function setValue(object $entity, string $name, $value): void
+    public static function setValue(&$entity, string $name, $value): void
     {
+        if(is_array($entity)) {
+            ArrayHelper::set($entity, $name, $value);
+            return;
+        }
+
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         $propertyAccessor->setValue($entity, $name, $value);
     }
@@ -40,15 +50,23 @@ class PropertyHelper
     /**
      * Назначить массив атрибутов.
      * 
-     * @param object $entity
+     * @param object | array $entity
      * @param array $data
      * @param array $filedsOnly
      */
-    public static function setAttributes(object $entity, $data, array $filedsOnly = []): void
+    public static function setAttributes(&$entity, $data, array $filedsOnly = []): void
     {
         if (empty($data)) {
             return;
         }
+
+        if(is_array($entity)) {
+            $data = ArrayHelper::only($data);
+            $entity = ArrayHelper::merge($entity, $data);
+            return;
+        }
+
+
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         foreach ($data as $name => $value) {
             $name = Inflector::variablize($name);
